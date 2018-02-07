@@ -5,8 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Where;
+import org.hibernate.annotations.WhereJoinTable;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+import taesu.faster.coop.cooperation.code.model.Code;
+import taesu.faster.coop.cooperation.role.model.Role;
 import taesu.faster.coop.cooperation.token.model.TokenSource;
 
 import javax.persistence.*;
@@ -14,6 +18,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -53,8 +58,6 @@ public final class User implements Serializable, TokenSource<UserTokenType> {
 	@Column(name="PROFILE_FILE_KEY")
     private Long profileFileKey;
 	
-	@Column(name = "ROLE_KEY")
-    private Long roleKey;
 	
 	@Column(name = "USER_NAME")
     private String userName;
@@ -75,7 +78,11 @@ public final class User implements Serializable, TokenSource<UserTokenType> {
     private String birth;
 	
 	@Column(name = "CITY_TYPE_KEY")
-    private Integer cityTypeKey;
+	private Integer cityTypeKey;
+	
+	@ManyToOne
+	@JoinColumn(name="ROLE_KEY")
+	private Role role;
 	
 	@Column(name = "CREATED_AT")
     private ZonedDateTime createdAt;
