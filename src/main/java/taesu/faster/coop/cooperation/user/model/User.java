@@ -4,10 +4,16 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import taesu.faster.coop.cooperation.token.model.TokenSource;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -20,12 +26,60 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name="USER")
 public final class User implements Serializable, TokenSource<UserTokenType> {
-
-    private long userKey;
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "USER_KEY")
+    private Long userKey;
+	
+	@Column(name = "USER_ID")
     private String userId;
-
+	
+	@Column(name = "PASSWORD")
+    private String password;
+	
+	@Column(name="GENDER")
+    private Integer gender;
+	
+	@Column(name="EMAIL")
+    private String email;
+	
+	@Column(name = "PHONE")
+    private String phone;
+	
+	@Column(name="PROFILE_FILE_KEY")
+    private Long profileFileKey;
+	
+	@Column(name = "ROLE_KEY")
+    private Long roleKey;
+	
+	@Column(name = "USER_NAME")
+    private String userName;
+	
+	@Column(name = "IS_ACCOUNT_NON_EXPIRED")
+    private Boolean isAccountNonExpired;
+	
+	@Column(name = "IS_ACCOUNT_NON_LOCKED")
+    private Boolean isAccountNonLocked;
+	
+	@Column(name = "IS_CREDENTIALS_NON_EXPIRED")
+    private Boolean isCredentialsNonExpired;
+	
+	@Column(name = "IS_ENABLED")
+    private Boolean isEnabled;
+	
+	@Column(name = "BIRTH")
+    private String birth;
+	
+	@Column(name = "CITY_TYPE_KEY")
+    private Integer cityTypeKey;
+	
+	@Column(name = "CREATED_AT")
+    private ZonedDateTime createdAt;
+	
     @Override
     public JWTClaimsSet.Builder getClaimedBuilder(UserTokenType userTokenType) {
         if(Objects.equals(userTokenType, UserTokenType.ACCESS_TOKEN)) {

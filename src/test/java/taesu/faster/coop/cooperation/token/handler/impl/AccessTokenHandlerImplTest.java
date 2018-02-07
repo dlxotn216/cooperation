@@ -43,7 +43,9 @@ public class AccessTokenHandlerImplTest {
 
     @Test
     public void equalTokenSourceAndParsedTokenSource() {
-        User user = new User(13L, "test");
+        User user = new User();
+        user.setUserKey(13L);
+        user.setUserId("test");
 
         String token = accessTokenHandler.generateTokenValue(user, UserTokenType.ACCESS_TOKEN);
         User parsed = accessTokenHandler.parseTokenValue(token);
@@ -54,7 +56,9 @@ public class AccessTokenHandlerImplTest {
 
     @Test(expected = TokenExpirationException.class)
     public void testForExpiredToken(){
-        User user = new User(13L, "test");
+        User user = new User();
+		user.setUserKey(13L);
+		user.setUserId("test");
 
         ZonedDateTime current = ZonedDateTime.now(ZoneOffset.UTC);
         ZonedDateTime expirationTime = current.minusHours(10L);
@@ -71,7 +75,9 @@ public class AccessTokenHandlerImplTest {
 
     @Test
     public void testForUnlimitedExpirationTimeToken(){
-        User user = new User(13L, "test");
+        User user = new User();
+		user.setUserKey(13L);
+		user.setUserId("test");
         String token = accessTokenHandler.generateTokenValue(user, UserTokenType.ACCESS_TOKEN, null);
         accessTokenHandler.parseTokenValue(token);
     }
