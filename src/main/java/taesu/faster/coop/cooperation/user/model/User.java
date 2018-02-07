@@ -17,19 +17,13 @@ import java.util.Objects;
  * @since 2018-01-22
  */
 
-@Entity
-@Table(name = "User")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public final class User implements Serializable, TokenSource<UserTokenType> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "USER_KEY")
     private long userKey;
 
-    @Column(name = "USER_ID")
     private String userId;
 
     @Override
