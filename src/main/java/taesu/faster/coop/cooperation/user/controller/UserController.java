@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import taesu.faster.coop.cooperation.user.service.UserService;
 
 import java.util.HashMap;
@@ -20,6 +21,15 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@GetMapping("/users2")
+	public ModelAndView getUsers(ModelAndView modelAndView){
+		Map<String, Object> result= new HashMap<>();
+		result.put("result", userService.getUsers());
+		
+		modelAndView.addObject(result);
+		return modelAndView;
+	}
 	
 	@GetMapping("/users")
 	public Map<String, Object> getUsers(){

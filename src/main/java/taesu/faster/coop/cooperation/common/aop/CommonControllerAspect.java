@@ -9,6 +9,12 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
+ * 
+ * Controller에 AOP를 설정 하여 API의 수행 시간을 측정한다
+ * 
+ * 또는 ResponseBodyAdvice<Object> 인터페이스를 구현 한 @ControllerAdvice 어노테이션을 가진 Bean으로 처리할 수 있다
+ * (Interceptor의 preHandle에서 startTime을 기록해주어야 한다) 
+ * 
  * @author Lee Tae Su 
  * @project cooperation
  * @version 1.0
